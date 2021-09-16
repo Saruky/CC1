@@ -54,6 +54,13 @@ function setup() {
   rectMode(CENTER);
   rect(320, 200, 80, 20);
 
+  //draw teeth
+  fill(255,247,230);
+  noStroke();
+  rect(310, 175, 7, 60);
+  fill(255,247,230);
+  rect(330, 175, 7, 60);
+
 
 
 
