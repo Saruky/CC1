@@ -9,64 +9,77 @@ Two circles, the left one bigger and more transparent than the right, come in fr
 "use strict";
 
 function preload() {
-
 }
-let backgroundshade = 230;
-
+//Define objects: background and circles
+let bg = {
+  r : 0,
+  g : 20,
+  b : 19
+};
 
 let circleA = {
-  size : 350,
-  x : 1000,
-  y : 305,
-  speed : 2.5,
-  fill:(47, 196, 255, 122)
-};
-let circleB = {
-  size : 90,
   x : 0,
-  y : 305,
-  speed : 7,
-  fill: 169
+  y : 350,
+  size: 350,
+  speed: 3,
+  growthRate: 2,
+  fill: 215,
+  alpha: 200
 };
 
+let circleB = {
+  x : 500,
+  y : 350,
+  size: 170,
+  sizeRatio: 0.5,
+  speed: -3,
+  fill: 35,
+  alpha: 150
+};
 
 function setup() {
   createCanvas (windowWidth, windowHeight);
+  circleB.x = width;
+  circleB.y = height/2;
+  circleA.y = height/2;
+  noStroke();
 }
-
 /**
 Description of draw()
 */
+//Setting the Background: using r, g, b
 function draw() {
-  noStroke();
 
-  background(backgroundshade);
-  backgroundshade = constrain(backgroundshade, 10, 190);
-  backgroundshade += 1;
+  background(bg.r, bg.g, bg.b);
+  bg.r = map (circleA.size, 350, 500, 0, 200);
+  bg.g += 1;
+  bg.g = constrain(bg.g, 0, 88);
+  bg.b += 1;
+  bg.b = constrain(bg.g, 0, 38);
 
 
 // Draw a square in the centre of the canvas
   rectMode(CENTER);
-  fill(129, 150, 49);
-  rect(width/2, height/2, 750, 500);
+  fill(229, 160, 225, 200);
+  rect(width/2, height/2, 1050, 550);
 
 //Draw moving circle A
-  circleA.fill = random(103, 205);
-  circleA.x = constrain(circleA.x, width, width/2);
-  fill(circleA.fill);
-
+  circleA.x +=circleA.speed;
+  circleA.x = constrain (circleA.x, 0, width/2);
+  circleA.size +=circleA.growthRate;
+  circleA.size = constrain (circleA.size, 0, 550);
+  fill(circleA.fill, circleA.alpha);
   ellipse(circleA.x,circleA.y,circleA.size);
-  circleA.speed = -5;
-  circleA.x += circleA.speed;
 
 
 //Draw moving circle B
-  circleB.fill = map(circleB.x, 0, width, 0, 133);
-  circleB.x = constrain(circleB.x, 0, width/2);
-  fill(circleB.fill);
-
+//Add negative 1 to x!
+  circleB.x +=circleB.speed;
+  circleB.x = constrain (circleB.x, width/2, width);
+  circleB.size =circleA.size * circleB.sizeRatio;
+  fill(circleB.fill, circleB.alpha);
   ellipse(circleB.x,circleB.y,circleB.size);
-  circleB.x += circleB.speed;
+
+
 
 }
-//Draw moving circle B
