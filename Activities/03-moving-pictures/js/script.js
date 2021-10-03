@@ -79,7 +79,4 @@ function draw() {
   circleB.size =circleA.size * circleB.sizeRatio;
   fill(circleB.fill, circleB.alpha);
   ellipse(circleB.x,circleB.y,circleB.size);
-
-
-
 }
